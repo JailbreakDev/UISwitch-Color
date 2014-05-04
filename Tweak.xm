@@ -21,38 +21,28 @@ clearColor
 
 */
 
-//hooking the UISwitch Class
 %hook UISwitch
 
-//overwriting the onTintColor method and change the color to be always red
--(void)setOnTintColor:(UIColor *)color {
-
-color = [UIColor redColor];
-
-%orig(color);
-
-}
-
-//overwriting the getter method
 -(UIColor *)onTintColor {
-
-return [UIColor redColor];
-
+	return [UIColor blackColor];
 }
 
-//when the switches are created, change the color to redColor
--(id)initWithFrame:(CGRect)frame {
-
-self = %orig;
-
-if (self) {
-
-[self setOnTintColor:[UIColor redColor]];
-
+-(void)setOnTintColor:(UIColor *)color {
+	color = [UIColor blackColor];
+	%orig(color);
 }
 
-return self;
+- (id)initWithFrame:(CGRect)frame {
 
+	self = %orig;
+
+	if (self) {
+
+		self.onTintColor = [UIColor blackColor];
+		[self setOnTintColor:[UIColor blackColor]];
+	}
+
+	return self;
 }
 
 %end
